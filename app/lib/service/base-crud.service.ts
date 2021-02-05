@@ -17,7 +17,7 @@ export abstract class BaseCrudService<T> implements Crud<T> {
     );
   }
 
-  get(id: number): Observable<T> {
+  get(id: any): Observable<T> {
     return this.http.get<T>(`${this.url}/${id}`);
   }
 
