@@ -1,0 +1,142 @@
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Register</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerForm" (ngSubmit)='onRegsit()' >
+      <label>Name</label>
+      <div class="input-group mb-3">
+        <input
+          formControlName="name"
+          [class.is-invalid]="isFieldInvalid(registerForm, 'name')"
+          class="form-control"
+          type="text"
+          required
+        >
+        <ng-container *ngIf="isFieldInvalid(registerForm, 'name')">
+          <div
+            *ngIf="registerForm.get('name').hasError('required')"
+            class="invalid-feedback"
+          >
+            Name is required.
+          </div>
+        </ng-container>
+      </div>
+      <label>No KTP</label>
+      <div class="input-group mb-3">
+        <input
+          formControlName="noKtp"
+          [class.is-invalid]="isFieldInvalid(registerForm, 'noKtp')"
+          class="form-control"
+          type="number"
+          required
+        >
+        <ng-container *ngIf="isFieldInvalid(registerForm, 'noKtp')">
+          <div
+            *ngIf="registerForm.get('noKtp').hasError('required')"
+            class="invalid-feedback"
+          >
+            NO KTP is required.
+          </div>
+          </ng-container>
+      </div>
+      <label>Alamat</label>
+      <div class="input-group mb-3">
+        <input
+          formControlName="address"
+          [class.is-invalid]="isFieldInvalid(registerForm, 'address')"
+          class="form-control"
+          type="text"
+          required
+        >
+        <ng-container *ngIf="isFieldInvalid(registerForm, 'address')">
+          <div
+            *ngIf="registerForm.get('address').hasError('required')"
+            class="invalid-feedback"
+          >
+            Alamat is required.
+          </div>
+        </ng-container>
+      </div>
+        <label>Email</label>
+      <div class="input-group mb-3">
+        <input
+          formControlName="email"
+          [class.is-invalid]="isFieldInvalid(registerForm, 'email')"
+          class="form-control"
+          type="email"
+          required
+        >
+        <ng-container *ngIf="isFieldInvalid(registerForm, 'email')">
+          <div
+            *ngIf="registerForm.get('email').hasError('required')"
+            class="invalid-feedback"
+          >
+            Email is required.
+          </div>
+          <div
+            *ngIf="registerForm.get('email').hasError('pattern')"
+            class="invalid-feedback"
+          >
+            Email is not valid
+          </div>
+        </ng-container>
+      </div>
+      <label>Password</label>
+      <div class="input-group mb-3">
+        <input
+          formControlName="password"
+          [class.is-invalid]="isFieldInvalid(registerForm, 'password')"
+          class="form-control"
+          type="password"
+          required
+        >
+        <ng-container *ngIf="isFieldInvalid(registerForm, 'password')">
+          <div
+            *ngIf="registerForm.get('password').hasError('required')"
+            class="invalid-feedback"
+          >
+            Password is required.
+          </div>
+        </ng-container>
+      </div>
+      <Label>No Card</Label>
+      <div formArrayName="cards">
+        <div *ngFor="let cardNumber of noCards().controls; let i=index" [formGroupName]="i">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="icon-credit-card"></i></span>
+            </div>
+            <input
+              type="number"
+              formControlName="cardNumber"
+              required
+              placeholder="Your number card no.{{i+1}}"
+              class="form-control">
+              <div *ngIf="noCards().length > 1">
+                <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
+              </div>
+            <ng-container *ngIf="isFieldInvalid(registerForm, 'cards')">
+              <div
+                *ngIf="registerForm.get('cards').hasError('required')"
+                class="invalid-feedback"
+              >
+                Card is required.
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <button type="button" (click)="addQuantity()" class="btn btn-primary">Add Card</button>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-block btn-primary px-4" type="submit">Register</button>
+        </div>
+      </div>
+    </form>
+  </div>
+

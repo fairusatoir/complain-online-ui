@@ -1,0 +1,126 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header-blue">
+      <span class="font-weight-bold mt-2">
+        {{ title }} Menu
+      </span>
+    </div>
+    <div class="card-body">
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="form"
+      >
+        <div class="row">
+          <div class="col-12 col-sm-6">
+
+            <!-- Module -->
+            <fieldset class="form-group">
+              <label class="col-form-label required" for="module-id">No Card</label>
+              <ng-select
+                [items]="noCard"
+                [typeahead]="noCardTypeahead$"
+                (focus)="noCardTypeahead$.next()"
+                [loading]="noCardLoading"
+                bindLabel="name"
+                bindValue="id"
+                formControlName="card_id"
+                id="no-card-id"
+                placeholder="Select card number"
+              >
+                <ng-template let-searchTerm="searchTerm" ng-notfound-tmp>
+                  <div class="ng-option disabled">
+                    No data found for "{{searchTerm}}"
+                  </div>
+                </ng-template>
+                <ng-template let-searchTerm="searchTerm" ng-loadingtext-tmp>
+                  <div class="ng-option disabled">
+                    Fetching data for "{{searchTerm}}"
+                  </div>
+                </ng-template>
+              </ng-select>
+            </fieldset>
+
+            <!-- Icon -->
+            <fieldset class="form-group">
+              <label class="col-form-label required" for="icon">Category</label>
+              <ng-select
+                [items]="categories"
+                [virtualScroll]="true"
+                bindLabel="name"
+                bindValue="value"
+                formControlName="category"
+                groupBy="groupName"
+                id="category"
+                labelForId="category"
+                placeholder="Select category"
+              >
+                <ng-template
+                  let-name="item.name"
+                  let-value="item.value"
+                  ng-label-tmp
+                >
+                  {{ name }}
+                </ng-template>
+                <ng-template
+                  let-groupName="item.groupName"
+                  let-index="index"
+                  ng-optgroup-tmp
+                >
+                  Select <b>"{{ groupName }}"</b>
+                </ng-template>
+                <ng-template
+                  let-name="item.name"
+                  let-value="item.value"
+                  ng-option-tmp
+                >
+                  <i [class]="'icons ' + value"></i>
+                  {{ name }}
+                </ng-template>
+              </ng-select>
+            </fieldset>
+
+          </div>
+          <div class="col-12 col-sm-6">
+
+            <!-- Description -->
+            <fieldset class="form-group">
+              <label class="col-form-label required" for="textarea-input">Complain</label>
+              <textarea
+                [class.is-invalid]="isFieldInvalid(form, 'complain_text')"
+                class="form-control"
+                formControlName="complain_text"
+                id="complain_text"
+                name="complain_text"
+                rows="9"></textarea>
+                <ng-container *ngIf="isFieldInvalid(form,'complain_text')">
+                  <div *ngIf="form.get('complain_text').hasError('required')" class="invalid-feedback">
+                    Complain is required
+                  </div>
+                </ng-container>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col form-group">
+            <div class="form-actions submit-button mt-5">
+              <ng-template [ngIfElse]="falseEditable" [ngIf]="editable">
+                <button class="btn btn-sm btn-primary" type="submit">
+                  <i class="fa fa-check"></i> Submit
+                </button>&nbsp;
+              </ng-template>
+              <ng-template #falseEditable>
+                <button [routerLink]="['edit']" class="btn btn-sm btn-success" type="button">
+                  <i class="fa fa-edit"></i> Edit
+                </button>&nbsp;
+              </ng-template>
+              <button (click)="location.back()" class="btn btn-sm btn-secondary cancel-buttons" type="button">
+                <i class="fa fa-close"></i> Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
