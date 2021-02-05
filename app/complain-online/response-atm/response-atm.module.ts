@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ComplainSharedModule } from "../shared/complain-shared.module";
-import { TrackingComplainRoutingModule } from './tracking-complain-routing.module';
-import { MenuTableComponent } from "./table/tracking-complain.component";
+import { ResponseAtmRoutingModule } from './response-atm-routing.module';
+import { ResponseAtmComponent } from './table/response-atm.component';
+
 
 @NgModule({
   declarations: [
-    MenuTableComponent
+    ResponseAtmComponent
   ],
   imports: [
     CommonModule,
-    TrackingComplainRoutingModule,
+    ResponseAtmRoutingModule,
     ComplainSharedModule
   ]
 })
-export class CreateComplainModule {}
+export class ResponseAtmModule {}

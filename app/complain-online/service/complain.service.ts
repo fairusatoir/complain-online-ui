@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { constant } from '../../../environments/constant';
 import { BaseCrudTableService } from '../../lib/service';
 import { ComplainModule } from '../complain-online.module';
-import { CardList, ComplainList } from '../model';
-import { Observable } from 'rxjs';
-import { PagedApiResponse, PageRequest } from '../../lib/model';
+import { ComplainList } from '../model';
 
 @Injectable({ providedIn: ComplainModule })
 export class ComplainService extends BaseCrudTableService<ComplainList> {

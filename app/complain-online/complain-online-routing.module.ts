@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: "track",
         loadChildren: () => import('./tracking-complain/tracking-complain.module').then(mod => mod.CreateComplainModule)
+      },
+      {
+        path: "response-atm",
+        loadChildren: () => import('./response-atm/response-atm.module').then(mod => mod.ResponseAtmModule)
       }
     ]
   }

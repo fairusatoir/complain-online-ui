@@ -99,17 +99,7 @@
                 {{ value | ellipsis: 15 }}
               </ng-template>
             </ngx-datatable-column>
-            <!-- Subject complain -->
-            <ngx-datatable-column
-            [draggable]="false"
-            [sortable]="true"
-            name="Subject"
-            prop="subject"
-            >
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{ value | ellipsis: 15 }}
-            </ng-template>
-            </ngx-datatable-column>
+
             <!-- Category -->
             <ngx-datatable-column
               [draggable]="false"
