@@ -1,5 +1,6 @@
 export interface ComplainList{
   noComplain: string;
+  subject: string;
   customerId: number;
   cardId: number;
   category: string;
@@ -8,5 +9,5 @@ export interface ComplainList{
   status: string;
   createdDate: Date;
   doneDate: Date;
-
+  cardNumber: String;
 }

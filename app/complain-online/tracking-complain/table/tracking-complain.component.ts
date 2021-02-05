@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { PagedApiResponse, PageRequest } from '../../../lib/model';
 import { sortTableFn } from '../../../util';
@@ -16,9 +17,12 @@ export class MenuTableComponent implements OnInit {
   data: PagedApiResponse<ComplainList>;
   loadingIndicator: boolean;
   page: PageRequest = new PageRequest();
-  sortTableFn: Function = sortTableFn;
+  sortTableFn = sortTableFn;
+  modalRef: BsModalRef;
+  dataDetail: ComplainList;
 
-  constructor(private complainService: ComplainService) {}
+  constructor(private complainService: ComplainService,
+    private modalService: BsModalService) { }
 
   get offset(): number {
     return !!(this.data && this.data.number) ? this.data.number : 0;
@@ -46,5 +50,11 @@ export class MenuTableComponent implements OnInit {
         finalize(() => this.loadingIndicator = false)
       )
       .subscribe(data => this.data = data);
+  }
+
+  getDetailData(data: ComplainList, template: TemplateRef<any>) {
+    console.log(data.noComplain);
+    this.modalRef = this.modalService.show(template);
+    this.dataDetail = data;
   }
 }

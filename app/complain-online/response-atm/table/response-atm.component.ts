@@ -17,7 +17,7 @@ export class ResponseAtmComponent implements OnInit {
   data: PagedApiResponse<ComplainList>;
   loadingIndicator: boolean;
   page: PageRequest = new PageRequest();
-  sortTableFn: Function = sortTableFn;
+  sortTableFn = sortTableFn;
   @Input() searchTerm: string;
 
   constructor(private responseatmservice: ResponseAtmService) {}
