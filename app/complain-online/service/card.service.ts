@@ -15,7 +15,12 @@ export class CardService extends BaseCrudTableService<CardList> {
 
   searchCard(searchTerm: string): Observable<Array<CardList>> {
     return this.http.get<Array<CardList>>(
-      `${constant.complainOnlineUrl}/complain/card`
+      `${constant.complainOnlineUrl}/complain/card`,
+      {
+        params: {
+          searchTerm: searchTerm ? searchTerm : ''
+        }
+      }
     );
   }
 }
