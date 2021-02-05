@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
 export class CardService extends BaseCrudTableService<CardList> {
 
   constructor(http: HttpClient) {
-    super(http, `${constant.comlainUrl}/complain-online/complain/card`);
+    super(http, `${constant.complainOnlineUrl}/complain/card`);
   }
 
-  // searchCard(searchTerm: string): Observable<Array<CardList>> {
-  //   return this.http.get<Array<CardList>>(
-  //     `${constant.comlainUrl}/complain-online/complain/card`
-  //   );
-  // }
+  searchCard(searchTerm: string): Observable<Array<CardList>> {
+    return this.http.get<Array<CardList>>(
+      `${constant.complainOnlineUrl}/complain/card`
+    );
+  }
 }

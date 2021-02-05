@@ -13,7 +13,26 @@
         <div class="row">
           <div class="col-12 col-sm-6">
 
-            <!-- Module -->
+            <!-- Title -->
+            <fieldset class="form-group">
+              <label class="col-form-label required" for="subject">Subject</label>
+              <input
+                [class.is-invalid]="isFieldInvalid(form, 'subject')"
+                class="form-control"
+                formControlName="subject"
+                id="subject"
+                name="subject"
+                type="text"
+                placeholder="Subject Complain"
+              />
+              <ng-container *ngIf="isFieldInvalid(form,'subject')">
+                <div *ngIf="form.get('subject').hasError('required')" class="invalid-feedback">
+                  Subject is required
+                </div>
+              </ng-container>
+            </fieldset>
+
+            <!-- No Card -->
             <fieldset class="form-group">
               <label class="col-form-label required" for="module-id">No Card</label>
               <ng-select
@@ -21,9 +40,9 @@
                 [typeahead]="noCardTypeahead$"
                 (focus)="noCardTypeahead$.next()"
                 [loading]="noCardLoading"
-                bindLabel="name"
+                bindLabel="cardNumber"
                 bindValue="id"
-                formControlName="card_id"
+                formControlName="cardId"
                 id="no-card-id"
                 placeholder="Select card number"
               >
@@ -40,7 +59,7 @@
               </ng-select>
             </fieldset>
 
-            <!-- Icon -->
+            <!-- Category -->
             <fieldset class="form-group">
               <label class="col-form-label required" for="icon">Category</label>
               <ng-select
@@ -82,18 +101,19 @@
           </div>
           <div class="col-12 col-sm-6">
 
-            <!-- Description -->
+            <!-- Complain Text -->
             <fieldset class="form-group">
               <label class="col-form-label required" for="textarea-input">Complain</label>
               <textarea
-                [class.is-invalid]="isFieldInvalid(form, 'complain_text')"
+                [class.is-invalid]="isFieldInvalid(form, 'complainDetail')"
                 class="form-control"
-                formControlName="complain_text"
-                id="complain_text"
-                name="complain_text"
+                formControlName="complainDetail"
+                id="complainDetail"
+                name="complainDetail"
+                placeholder="Explain your complain . . ."
                 rows="9"></textarea>
-                <ng-container *ngIf="isFieldInvalid(form,'complain_text')">
-                  <div *ngIf="form.get('complain_text').hasError('required')" class="invalid-feedback">
+                <ng-container *ngIf="isFieldInvalid(form,'complainDetail')">
+                  <div *ngIf="form.get('complainDetail').hasError('required')" class="invalid-feedback">
                     Complain is required
                   </div>
                 </ng-container>

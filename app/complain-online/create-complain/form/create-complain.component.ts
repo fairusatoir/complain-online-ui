@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { isFieldInvalid, normalizeFlag } from '../../../util';
 import { categories, CreateCategoryModel } from '../create-category.model';
-import { CardService } from '../../service';
+import { CardService, ComplainService } from '../../service';
 import { Subject } from 'rxjs';
 import { CardList, Complain } from '../../model';
 
@@ -33,11 +33,13 @@ export class CreateComplainComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private cardService: CardService,
+    private complainService: ComplainService,
   ){
     this.form = formBuilder.group({
-      card_id: new FormControl('', Validators.required),
+      cardId: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
-      complain_text: new FormControl('', Validators.required),
+      complainDetail: new FormControl('', Validators.required),
+      subject: new FormControl('', Validators.required),
     })
     this.categories = categories;
   }
@@ -45,7 +47,7 @@ export class CreateComplainComponent implements OnInit {
   ngOnInit(){
     this.editable = this.activatedRoute.snapshot.data.editable;
     this.title = this.activatedRoute.snapshot.data.title;
-    // this.searchNoCard();
+    this.searchNoCard();
 
     if (!this.editable) {
       this.form.disable();
@@ -60,7 +62,7 @@ export class CreateComplainComponent implements OnInit {
           this.noCardLoading = true;
         }),
         debounceTime(300),
-        switchMap(searchText => this.cardService.search(searchText)) // - Backend searchSuggestions
+        switchMap(searchText => this.cardService.searchCard(searchText)) // - Backend searchSuggestions
       )
       .subscribe(data => {
         this.noCard = data;
@@ -73,7 +75,7 @@ export class CreateComplainComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-      this.cardService
+      this.complainService
         .add(normalizeFlag(this.form))
         .subscribe(() => this.location.back());
   }
