@@ -10,17 +10,6 @@ const routes: Routes = [
       title: 'Response',
       editable: true
     }
-    // ,
-    // children: [
-    //   {
-    //     path: 'create',
-    //     component: CreateComplainComponent,
-    //     data: {
-    //       title: 'Create',
-    //       editable: true
-    //     }
-    //   }
-    // ]
   }
 ];
 

@@ -53,7 +53,6 @@ export class MenuTableComponent implements OnInit {
   }
 
   getDetailData(data: ComplainList, template: TemplateRef<any>) {
-    console.log(data.noComplain);
     this.modalRef = this.modalService.show(template);
     this.dataDetail = data;
   }
