@@ -39,6 +39,7 @@ export class MenuTableComponent implements OnInit {
   getMenu(pageNumber: number = 1) {
     this.loadingIndicator = true;
     this.page.page = pageNumber;
+    // console.log("jjjjj")
 
     this.complainService
       .getTableRows(this.page)

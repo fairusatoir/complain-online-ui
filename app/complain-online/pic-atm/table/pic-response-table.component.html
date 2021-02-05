@@ -52,6 +52,9 @@
               [rowHeight]="150"
             >
               <ng-template
+                let-nocomplain= "row.noComplain"
+                let-category = "row.category"
+                let-complaindetail = "row.complaindetail"
                 let-activeFlag="row.activeFlag"
                 let-id="row.id"
                 let-name="row.name"
@@ -85,72 +88,62 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <!-- Name -->
-            <ngx-datatable-column
+              <!-- No complain -->
+              <ngx-datatable-column
               [draggable]="false"
               [sortable]="true"
-              name="Name"
-              prop="name"
+              name="No Complain"
+              prop="noComplain"
             >
               <ng-template let-value="value" ngx-datatable-cell-template>
                 {{ value | ellipsis: 15 }}
               </ng-template>
             </ngx-datatable-column>
 
-            <!-- Url -->
+            <!-- Category -->
             <ngx-datatable-column
-              [cellClass]="'d-none d-md-inline'"
               [draggable]="false"
-              [headerClass]="'d-none d-md-inline'"
               [sortable]="true"
-              name="Url"
-              prop="url"
+              name="Category"
+              prop="category"
             >
               <ng-template let-value="value" ngx-datatable-cell-template>
                 {{ value | ellipsis: 15 }}
               </ng-template>
             </ngx-datatable-column>
 
-            <!-- Title Flag -->
-            <ngx-datatable-column
-              [cellClass]="'d-none d-xl-inline'"
-              [draggable]="false"
-              [headerClass]="'d-none d-xl-inline'"
-              [sortable]="true"
-              name="Title"
-              prop="titleFlag"
-            >
-              <ng-template
-                let-value="value"
-                ngx-datatable-cell-template
-              >
-                <ng-template [ngIfElse]="falseTitle" [ngIf]="value === 'Y'">
-                  <span class="badge badge-success">Yes</span>
-                </ng-template>
-                <ng-template #falseTitle>
-                  <span class="badge badge-danger">No</span>
-                </ng-template>
-              </ng-template>
-            </ngx-datatable-column>
-
-            <!-- Active Flag-->
+            <!-- Date -->
             <ngx-datatable-column
               [cellClass]="'d-none d-md-inline'"
               [draggable]="false"
               [headerClass]="'d-none d-md-inline'"
               [sortable]="true"
-              name="Active"
-              prop="activeFlag"
+              name="Created Date"
+              prop="createdDate"
+            >
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{ value | date }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- Status-->
+            <ngx-datatable-column
+              [cellClass]="'d-none d-md-inline'"
+              [draggable]="false"
+              [headerClass]="'d-none d-md-inline'"
+              [sortable]="true"
+              name="Status"
+              prop="status"
             >
               <ng-template
                 let-value="value"
                 ngx-datatable-cell-template
               >
-                <ng-template [ngIfElse]="falseInactive" [ngIf]="value === 'Y'">
-                  <span class="badge badge-success">Active</span>
+                <ng-template [ngIfElse]="falseInactive" [ngIf]="value === 1">
+                  <span class="badge badge-success">Done</span>
                 </ng-template>
                 <ng-template #falseInactive>
-                  <span class="badge badge-danger">Inactive</span>
+                  <span class="badge badge-danger">on Progress</span>
                 </ng-template>
               </ng-template>
             </ngx-datatable-column>
@@ -164,47 +157,19 @@
               name="Action"
             >
               <ng-template
-                let-activeFlag="row.activeFlag"
-                let-id="row.id"
-                let-name="row.name"
+                let-complaindetail = "row.complainDetail"
+                let-id="row.noComplain"
                 ngx-datatable-cell-template
               >
                 <button
-                  [routerLink]="[id]"
+                  (click)="openModal(id, complaindetail, template)"
                   class="btn btn-sm btn-primary"
                   data-placement="bottom"
                   data-toggle="tooltip"
-                  title="detail"
+                  title="Reply"
                   type="button"
                 >
-                  <i class="fa fa-eye fa-sm"></i>
-                </button>&nbsp;
-                <button
-                  [routerLink]="[id, 'edit']"
-                  class="btn btn-sm btn-success"
-                  data-placement="bottom"
-                  data-toggle="tooltip"
-                  title="edit"
-                  type="button"
-                >
-                  <i class="fa fa-edit fa-sm"></i>
-                </button>&nbsp;
-                <button
-                  (confirm)="inactivateMenu(id)"
-                  [disabled]="activeFlag === 'N'"
-                  [swal]="{
-                    titleText: 'Inactivate Menu',
-                    text: 'Do you want to inactivate ' + name + '?',
-                    icon: 'warning',
-                    showCancelButton: true
-                  }"
-                  class="btn btn-sm btn-danger"
-                  data-placement="bottom"
-                  data-toggle="tooltip"
-                  title="inactivate"
-                  type="button"
-                >
-                  <i class="cui-lock-locked icons"></i>
+                  <i class="fa fa-reply fa-sm"> Reply</i>
                 </button>
               </ng-template>
             </ngx-datatable-column>
@@ -215,3 +180,17 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Reply Complain</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <modal-reply [atmComplain]="atmComplain"></modal-reply>
+</ng-template>
+
+
+
+

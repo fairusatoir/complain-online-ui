@@ -1,0 +1,49 @@
+<!-- <ng-template> -->
+  <!-- <div class="modal-header">
+    <h4 class="modal-title pull-left">Reply Complain</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div> -->
+
+  <div class="modal-body">
+    <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    >
+    <span>
+      <h6>No Complain</h6>{{ atmComplain.noComplain }}
+    </span>
+    <hr>
+    <span>
+      <h6>Complain</h6>{{ atmComplain.complainDetail }}
+    </span>
+    <hr>
+
+    <!-- Complain Text -->
+    <fieldset class="form-group">
+      <label class="col-form-label required" for="textarea-input">Reply</label>
+      <textarea
+      [class.is-invalid]="isFieldInvalid(form, 'complainResponse')"
+      class="form-control"
+      formControlName="complainResponse"
+          id="complainResponse"
+          name="complainResponse"
+          placeholder="Write your reply about this complain . . "
+          rows="9"></textarea>
+          <ng-container *ngIf="isFieldInvalid(form,'complainResponse')">
+            <div *ngIf="form.get('complainResponse').hasError('required')" class="invalid-feedback">
+              Complain is required
+            </div>
+          </ng-container>
+        </fieldset>
+
+        <button class="btn btn-sm btn-primary pull-right" type="submit">
+          <i class="fa fa-check"></i> Reply
+        </button>&nbsp;
+
+      </form>
+
+    </div>
+
+  <!-- </ng-template> -->

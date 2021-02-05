@@ -25,7 +25,7 @@ export abstract class BaseCrudService<T> implements Crud<T> {
     return this.http.post<T>(`${this.url}`, newData);
   }
 
-  edit(id: number, edited: any): Observable<T> {
+  edit(id: any, edited: any): Observable<T> {
     return this.http.put<T>(`${this.url}/${id}`, edited);
   }
 
